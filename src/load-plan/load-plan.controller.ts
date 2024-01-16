@@ -1,12 +1,6 @@
-import {
-  Controller,
-  Post,
-  Body,
-  HttpException,
-  HttpStatus,
-} from '@nestjs/common';
+import { Controller, Post, Body } from '@nestjs/common';
 
-import { CREATE, DELETE, UPDATE } from 'src/constants/constants';
+import { CREATE, DELETE, UPDATE } from '../constants/constants';
 import { LoadPlanService } from './load-plan.service';
 import { LoadPlanActionDto } from './dto/load-plan-action.dto';
 
@@ -38,20 +32,17 @@ export class LoadPlanController {
       return result !== null;
     });
     if (filteredErrors.length > 0) {
-      const errors = filteredErrors[0]?.filter((result) => {
-        if ((result as { isValidationError?: boolean })?.isValidationError) {
-          return true;
+      const transactions = validatedActionsResults.map((result, index) => {
+        if (result === null) {
+          return this.loadPlanService.handleAction(loadPlanActions[index]);
+        } else {
+          console.dir(result, { depth: null });
+          return Promise.reject(result);
         }
-        return false;
       });
-      if (errors && errors.length > 0) {
-        throw new HttpException(
-          {
-            validationErrors: errors,
-          },
-          HttpStatus.BAD_REQUEST,
-        );
-      }
+      const results = await Promise.allSettled(transactions);
+      console.dir(results, { depth: null });
+      return results;
     }
     const result = await this.loadPlanService.handleActions(loadPlanActions);
     return result;

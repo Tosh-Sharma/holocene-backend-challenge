@@ -43,4 +43,26 @@ export class LoadPlanService {
       );
     });
   }
+
+  async handleAction(action: LoadPlanActionDto) {
+    switch (action.action) {
+      case CREATE:
+        return this.prisma.loadPlan.create({
+          data: action.data as CreateLoadPlanDto,
+        });
+      case UPDATE:
+        return this.prisma.loadPlan.update({
+          where: { id: (action.data as UpdateLoadPlanDto).id },
+          data: action.data,
+        });
+      case DELETE:
+        return this.prisma.loadPlan.delete({
+          where: { id: (action.data as DeleteLoadPlanDto).id },
+        });
+      default:
+        return Promise.reject({
+          reason: INVALID_ACTION,
+        });
+    }
+  }
 }

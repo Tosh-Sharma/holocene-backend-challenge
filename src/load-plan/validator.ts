@@ -8,7 +8,6 @@ export async function validateDto(dtoClass: any, plainObject: any) {
   if (validationErrors.length > 0) {
     const errorConstraints = validationErrors.map((error) => {
       return {
-        isValidationError: true,
         key: error.property,
         constraints: error.constraints,
       };
