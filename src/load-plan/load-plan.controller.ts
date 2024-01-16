@@ -6,12 +6,7 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 
-import {
-  CREATE,
-  DELETE,
-  UPDATE,
-  VALIDATION_FAILED,
-} from 'src/constants/constants';
+import { CREATE, DELETE, UPDATE } from 'src/constants/constants';
 import { LoadPlanService } from './load-plan.service';
 import { LoadPlanActionDto } from './dto/load-plan-action.dto';
 
@@ -27,9 +22,9 @@ export class LoadPlanController {
   @Post()
   async handleLoadPlanActions(
     @Body()
-    actions: LoadPlanActionDto[],
+    loadPlanActions: LoadPlanActionDto[],
   ) {
-    const validatedActions = actions.map(async (action) => {
+    const validatedActions = loadPlanActions.map(async (action) => {
       if (action.action === CREATE) {
         return validateDto(CreateLoadPlanDto, action.data);
       } else if (action.action === UPDATE) {
@@ -39,14 +34,26 @@ export class LoadPlanController {
       }
     });
     const validatedActionsResults = await Promise.all(validatedActions);
-    const errorFilters = validatedActionsResults.filter((result) => {
-      return result === VALIDATION_FAILED;
+    const filteredErrors = validatedActionsResults.filter((result) => {
+      return result !== null;
     });
-    if (errorFilters.length > 0) {
-      throw new HttpException(VALIDATION_FAILED, HttpStatus.BAD_REQUEST);
+    if (filteredErrors.length > 0) {
+      const errors = filteredErrors[0]?.filter((result) => {
+        if ((result as { isValidationError?: boolean })?.isValidationError) {
+          return true;
+        }
+        return false;
+      });
+      if (errors && errors.length > 0) {
+        throw new HttpException(
+          {
+            validationErrors: errors,
+          },
+          HttpStatus.BAD_REQUEST,
+        );
+      }
     }
-    const result = await this.loadPlanService.handleActions(actions);
-    console.dir(result, { depth: null });
+    const result = await this.loadPlanService.handleActions(loadPlanActions);
     return result;
   }
 }
