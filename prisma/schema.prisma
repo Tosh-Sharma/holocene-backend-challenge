@@ -1,0 +1,24 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model LoadPlan {
+  id        String   @id @default(uuid()) // Primary key as UUID
+  name      String   // Name as a string
+  color     String   // Color as a hex code string
+  length    Float    // Length as a float input
+  width     Float    // Width as a float input
+  height    Float    // Height as a float input
+  weight    Float    // Weight as a float input
+  qty       Int      // Quantity as a numerical input
+  stackable Boolean  @default(false) // Stackable as a boolean
+  tiltable  Boolean  @default(false) // Tiltable as a boolean
+}
