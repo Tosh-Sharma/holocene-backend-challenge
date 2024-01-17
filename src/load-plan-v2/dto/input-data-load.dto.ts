@@ -6,10 +6,14 @@ import {
   MinLength,
 } from 'class-validator';
 
-export class CreateLoadPlanDto {
+export class InputDataLoadDto {
   @IsString()
   @MinLength(2)
   name: string;
+
+  @IsString()
+  @IsOptional()
+  id: string;
 
   @IsString()
   color: string;
