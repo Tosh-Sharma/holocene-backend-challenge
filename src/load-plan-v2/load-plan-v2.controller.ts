@@ -8,7 +8,7 @@ import {
 } from '@nestjs/common';
 import { LoadPlanV2Service } from './load-plan-v2.service';
 import { InputDataLoadDto } from './dto/input-data-load.dto';
-import { validateInput } from './validate-input';
+import { validateInput } from '../helpers/validate-input';
 
 @Controller('load-plan/v2')
 export class LoadPlanV2Controller {

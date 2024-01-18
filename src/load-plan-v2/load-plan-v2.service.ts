@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { CREATE_MANY, DELETE_MANY, UPDATE } from 'src/constants/constants';
+import { formatResponse } from 'src/helpers/responseFormatter';
 
 import { InputDataLoadDto } from './dto/input-data-load.dto';
-import { CREATE_MANY, DELETE_MANY, UPDATE } from 'src/constants/constants';
 
 @Injectable()
 export class LoadPlanV2Service {
@@ -13,7 +14,7 @@ export class LoadPlanV2Service {
     return response;
   };
 
-  handlePrismaOperations = (data, action: string, isArray: boolean) => {
+  prismaHandler = (data, action: string, isArray: boolean) => {
     if (isArray && data.length === 0) {
       return null;
     }
@@ -41,19 +42,10 @@ export class LoadPlanV2Service {
     }
   };
 
-  formatResponse = (rowsCreated, rowsDeleted, rowsUpdated) => {
-    const response = {
-      rowsCreated: rowsCreated?.count || 0,
-      rowsDeleted: rowsDeleted?.count || 0,
-      rowsUpdated: rowsUpdated.length,
-    };
-    return response;
-  };
-
   process = async (processData: InputDataLoadDto[]) => {
     const originalData = await this.findAll();
     const dataToCreate = processData.filter((row) => row.id === undefined); // This filters out all the rows to be created
-    const rowsCreated = await this.handlePrismaOperations(
+    const rowsCreated = await this.prismaHandler(
       dataToCreate,
       CREATE_MANY,
       true,
@@ -62,7 +54,7 @@ export class LoadPlanV2Service {
     const idsToDelete = originalData
       .filter((input) => !existingData.some((row) => row.id === input.id)) // This filters for rows that do not exist in
       .map((row) => row.id);
-    const rowsDeleted = await this.handlePrismaOperations(
+    const rowsDeleted = await this.prismaHandler(
       idsToDelete,
       DELETE_MANY,
       true,
@@ -73,18 +65,18 @@ export class LoadPlanV2Service {
       return keys.some((key) => row[key] !== originalRow[key]);
     });
 
-    const operations = [];
+    const updateOperations = [];
     if (dataToUpdate.length > 0) {
       dataToUpdate.forEach((row) =>
-        operations.push(this.handlePrismaOperations(row, UPDATE, false)),
+        updateOperations.push(this.prismaHandler(row, UPDATE, false)),
       );
     }
-    const operationToExecute = operations.filter(
+    const operationToExecute = updateOperations.filter(
       (operation) => operation !== null,
     );
     // This ensures either all update transactions happen at once or none at all.
     const rowsUpdated = await this.prisma.$transaction(operationToExecute);
-    const res = this.formatResponse(rowsCreated, rowsDeleted, rowsUpdated);
+    const res = formatResponse(rowsCreated, rowsDeleted, rowsUpdated);
     return res;
   };
 }

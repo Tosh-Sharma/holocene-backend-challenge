@@ -4,7 +4,7 @@ import { CREATE, DELETE, UPDATE } from '../constants/constants';
 import { LoadPlanService } from './load-plan.service';
 import { LoadPlanActionDto } from './dto/load-plan-action.dto';
 
-import { validateDto } from '../load-plan-v2/validate-input';
+import { validateDto } from '../helpers/validate-input';
 import { CreateLoadPlanDto } from './dto/create-load-plan.dto';
 import { UpdateLoadPlanDto } from './dto/update-load-plan.dto';
 import { DeleteLoadPlanDto } from './dto/delete-load-plan.dto';

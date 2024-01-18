@@ -2,7 +2,7 @@ import { HttpException, HttpStatus } from '@nestjs/common';
 import { validate } from 'class-validator';
 import { plainToClass } from 'class-transformer';
 
-import { InputDataLoadDto } from './dto/input-data-load.dto';
+import { InputDataLoadDto } from '../load-plan-v2/dto/input-data-load.dto';
 
 export const validateDto = async (dtoClass: any, plainObject: any) => {
   const classObject = plainToClass(dtoClass, plainObject);

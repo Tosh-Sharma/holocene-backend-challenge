@@ -1,0 +1,301 @@
+{
+	"info": {
+		"_postman_id": "986bd287-dacd-4f62-bb13-d503853fccc3",
+		"name": "LoadPlan API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32363446"
+	},
+	"item": [
+		{
+			"name": "localhost:3000/load-plan",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[{\n    \"action\": \"create\",\n    \"data\": {\n        \"name\": \"1234571\",\n        \"color\": \"#FAF9F9\",\n        \"length\": 123,\n        \"width\": 234.33,\n        \"height\": 65.56,\n        \"weight\": 223,\n        \"qty\": 20,\n        \"stackable\": true,\n        \"tiltable\": true\n    }\n}, {\n    \"action\": \"create\",\n    \"data\": {\n        \"name\": \"1234570\",\n        \"color\": \"#FBC937\",\n        \"length\": 80,\n        \"width\": 191.11,\n        \"height\": 66.444,\n        \"weight\": 11,\n        \"qty\": 37,\n        \"stackable\": false,\n        \"tiltable\": false\n    }\n}, {\n    \"action\": \"update\",\n    \"data\": {\n        \"id\": \"a8ddae8f-7155-48a9-98e6-2921e1867fe5\",\n        \"name\": \"Updated name 3\",\n        \"length\": 567,\n        \"width\": 4567\n    }\n}, {\n    \"action\": \"delete\",\n    \"data\": {\n        \"id\": \"747750eb-1412-489b-9971-64d5d0b9dfa4\" \n    }\n}]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/load-plan",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"load-plan"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Validation failure for Delete call",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[{\n    \"action\": \"delete\",\n    \"data\": {\n        \"id\": 111\n    }\n}]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/load-plan",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"load-plan"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Validation failure for Update call",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[{\n    \"action\": \"update\",\n    \"data\": {\n        \"name\": \"Some random key name\",\n        \"length\": 111,\n        \"width\": 27\n    }\n}]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/load-plan",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"load-plan"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Validation failure for Create Object",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[{\n    \"action\": \"create\",\n    \"data\": {\n        \"name\": \"Should fail\",\n        \"color\": \"#FAF9F9\",\n        \"length\": 123,\n        \"weight\": 223,\n        \"qty\": 20,\n        \"stackable\": true,\n        \"tiltable\": true\n    }\n}, {\n    \"action\": \"create\",\n    \"data\": {\n        \"name\": \"Should also fail\",\n        \"color\": \"#FAF9F9\",\n        \"length\": 123,\n        \"width\": 191.11,\n        \"height\": 66.444,\n        \"weight\": 11,\n        \"stackable\": false,\n        \"tiltable\": false\n    }\n}]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/load-plan",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"load-plan"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create and update working simultaneously",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[{\n    \"action\": \"create\",\n    \"data\": {\n        \"name\": \"1234571\",\n        \"color\": \"#FAF9F9\",\n        \"length\": 123,\n        \"width\": 234.33,\n        \"height\": 65.56,\n        \"weight\": 223,\n        \"qty\": 20,\n        \"stackable\": true,\n        \"tiltable\": true\n    }\n}, {\n    \"action\": \"create\",\n    \"data\": {\n        \"name\": \"1234570\",\n        \"color\": \"#FBC937\",\n        \"length\": 80,\n        \"width\": 191.11,\n        \"height\": 66.444,\n        \"weight\": 11,\n        \"qty\": 37,\n        \"stackable\": false,\n        \"tiltable\": false\n    }\n}, {\n    \"action\": \"update\",\n    \"data\": {\n        \"id\": \"a8ddae8f-7155-48a9-98e6-2921e1867fe5\",\n        \"name\": \"Updated name 5\",\n        \"length\": 111,\n        \"width\": 27\n    }\n}]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/load-plan",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"load-plan"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Multiple successful create calls",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[{\n    \"action\": \"create\",\n    \"data\": {\n        \"name\": \"Should pass as well\",\n        \"color\": \"#FAF9F9\",\n        \"length\": 123,\n        \"height\": 12,\n        \"width\": 15,\n        \"weight\": 223,\n        \"qty\": 20,\n        \"stackable\": true,\n        \"tiltable\": true\n    }\n}, {\n    \"action\": \"create\",\n    \"data\": {\n        \"name\": \"Should pass\",\n        \"color\": \"#FAF9F9\",\n        \"length\": 123,\n        \"width\": 191.11,\n        \"height\": 66.444,\n        \"weight\": 11,\n        \"qty\": 37,\n        \"stackable\": false,\n        \"tiltable\": false\n    }\n}]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/load-plan",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"load-plan"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Single successful create call",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[{\n    \"action\": \"create\",\n    \"data\": {\n        \"name\": \"only create\",\n        \"color\": \"#FAF9F9\",\n        \"length\": 123,\n        \"width\": 234.33,\n        \"height\": 65.56,\n        \"weight\": 223,\n        \"qty\": 20,\n        \"stackable\": true,\n        \"tiltable\": true\n    }\n}]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/load-plan",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"load-plan"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Single successful delete call",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[{\n    \"action\": \"delete\",\n    \"data\": {\n        \"id\": \"94e0582a-55ad-4097-8a85-96df93eedd51\"\n    }\n}]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/load-plan",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"load-plan"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Route for LoadPlanV2",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/load-plan/v2",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"load-plan",
+						"v2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post route for LoadPlanV2",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    {\n        \"name\": \"1234570 updated\",\n        \"length\": 80,\n        \"color\": \"#ABCDEF\",\n        \"width\": 191.11,\n        \"height\": 66.444,\n        \"weight\": 11,\n        \"qty\": 37,\n        \"stackable\": false,\n        \"tiltable\": false\n    },\n    {\n        \"id\": \"feff63cb-e0d0-4437-8519-dd7caa72b2b8\",\n        \"name\": \"1234570 updated\",\n        \"color\": \"#FAF9F9\",\n        \"length\": 123,\n        \"width\": 234.33,\n        \"height\": 65.56,\n        \"weight\": 223,\n        \"qty\": 20,\n        \"stackable\": true,\n        \"tiltable\": true\n    },\n    {\n        \"id\": \"150a374c-8e76-4f23-b2fa-84b53d89b0e7\",\n        \"name\": \"new updated record name\",\n        \"color\": \"#FAF9F9\",\n        \"length\": 123,\n        \"width\": 234.33,\n        \"height\": 65.56,\n        \"weight\": 223,\n        \"qty\": 20,\n        \"stackable\": true,\n        \"tiltable\": false\n    },\n    {\n        \"id\": \"82355e17-4d76-4dea-92f4-105f6c196b3c\",\n        \"name\": \"A test row for dummy creation #2\",\n        \"color\": \"#AF12CF3\",\n        \"length\": 123,\n        \"width\": 234.33,\n        \"height\": 65.56,\n        \"weight\": 223,\n        \"qty\": 100,\n        \"stackable\": true,\n        \"tiltable\": true\n    },\n    {\n        \"id\": \"3d22fa3d-2f7d-453f-baf6-0598e427ac20\",\n        \"name\": \"Tosh Sharma #2\",\n        \"color\": \"#FAF9F9\",\n        \"length\": 123,\n        \"width\": 234.33,\n        \"height\": 65.56,\n        \"weight\": 223,\n        \"qty\": 20,\n        \"stackable\": false,\n        \"tiltable\": false\n    },\n    {\n        \"id\": \"83bba2b2-6726-4dce-b59b-374563df4b2d\",\n        \"name\": \"Tosh Sharma #3\",\n        \"color\": \"#FAF9F9\",\n        \"length\": 123,\n        \"width\": 234.33,\n        \"height\": 65.56,\n        \"weight\": 223,\n        \"qty\": 20,\n        \"stackable\": false,\n        \"tiltable\": false\n    },\n    {\n        \"id\": \"fb400fb4-76d2-41f3-9c88-f56f9a49ba9b\",\n        \"name\": \"only create with a missing tiltable and missing stackable #3\",\n        \"color\": \"#ABCDE\",\n        \"length\": 321,\n        \"width\": 432.33,\n        \"height\": 56.56,\n        \"weight\": 323,\n        \"qty\": 120,\n        \"stackable\": false,\n        \"tiltable\": false\n    },\n    {\n        \"id\": \"734b916c-5f70-4234-8820-4c6622c2eb34\",\n        \"name\": \"only create with a missing tiltable and missing stackable #3\",\n        \"color\": \"#FAF9F9\",\n        \"length\": 123,\n        \"width\": 234.33,\n        \"height\": 65.56,\n        \"weight\": 223,\n        \"qty\": 20,\n        \"stackable\": false,\n        \"tiltable\": false\n    },\n    {\n        \"id\": \"64070415-60b6-4186-80e1-ab0fa152d47f\",\n        \"name\": \"only create with a missing tiltable and missing stackable #3\",\n        \"color\": \"#ABCDE\",\n        \"length\": 321,\n        \"width\": 432.33,\n        \"height\": 56.56,\n        \"weight\": 223,\n        \"qty\": 20,\n        \"stackable\": false,\n        \"tiltable\": false\n    },\n    {\n        \"id\": \"05334d76-742f-4494-a734-b2aee170f8e0\",\n        \"name\": \"Should get updated\",\n        \"color\": \"#FAF9F9\",\n        \"length\": 123,\n        \"width\": 191.11,\n        \"height\": 66.444,\n        \"weight\": 223,\n        \"qty\": 20,\n        \"stackable\": true,\n        \"tiltable\": true\n    },\n    {\n        \"id\": \"c15fd7e0-5094-41cc-a5ed-c38287dcec84\",\n        \"name\": \"Vineet Parekh\",\n        \"color\": \"#FAF9F9\",\n        \"length\": 123,\n        \"width\": 191.11,\n        \"height\": 66.444,\n        \"weight\": 223,\n        \"qty\": 42,\n        \"stackable\": true,\n        \"tiltable\": true\n    }\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/load-plan/v2",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"load-plan",
+						"v2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Validation failing for LoadPlanV2",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    {\n        \"name\": \"1234570 updated\",\n        \"length\": 80,\n        \"width\": 191.11,\n        \"height\": 66.444,\n        \"weight\": 11,\n        \"qty\": 37,\n        \"stackable\": false,\n        \"tiltable\": false\n    },\n    {\n        \"id\": \"feff63cb-e0d0-4437-8519-dd7caa72b2b8\",\n        \"name\": \"1234570 updated\",\n        \"color\": \"#FAF9F9\",\n        \"length\": 123,\n        \"width\": 234.33,\n        \"height\": 65.56,\n        \"weight\": 223,\n        \"qty\": 20,\n        \"stackable\": true,\n        \"tiltable\": true\n    },\n    {\n        \"id\": \"150a374c-8e76-4f23-b2fa-84b53d89b0e7\",\n        \"name\": \"new updated record name\",\n        \"color\": \"#FAF9F9\",\n        \"length\": 123,\n        \"width\": 234.33,\n        \"height\": 65.56,\n        \"weight\": 223,\n        \"qty\": 20,\n        \"stackable\": true,\n        \"tiltable\": false\n    },\n    {\n        \"id\": \"82355e17-4d76-4dea-92f4-105f6c196b3c\",\n        \"name\": \"A test row for dummy creation #2\",\n        \"color\": \"#AF12CF3\",\n        \"length\": 123,\n        \"width\": 234.33,\n        \"height\": 65.56,\n        \"weight\": 223,\n        \"qty\": 100,\n        \"stackable\": true,\n        \"tiltable\": true\n    },\n    {\n        \"id\": \"3d22fa3d-2f7d-453f-baf6-0598e427ac20\",\n        \"name\": \"Tosh Sharma #2\",\n        \"color\": \"#FAF9F9\",\n        \"length\": 123,\n        \"width\": 234.33,\n        \"height\": 65.56,\n        \"weight\": 223,\n        \"qty\": 20,\n        \"stackable\": false,\n        \"tiltable\": false\n    },\n    {\n        \"id\": \"83bba2b2-6726-4dce-b59b-374563df4b2d\",\n        \"name\": \"Tosh Sharma #3\",\n        \"color\": \"#FAF9F9\",\n        \"length\": 123,\n        \"width\": 234.33,\n        \"height\": 65.56,\n        \"weight\": 223,\n        \"qty\": 20,\n        \"stackable\": false,\n        \"tiltable\": false\n    },\n    {\n        \"id\": \"fb400fb4-76d2-41f3-9c88-f56f9a49ba9b\",\n        \"name\": \"only create with a missing tiltable and missing stackable #3\",\n        \"color\": \"#ABCDE\",\n        \"length\": 321,\n        \"width\": 432.33,\n        \"height\": 56.56,\n        \"weight\": 323,\n        \"qty\": 120,\n        \"stackable\": false,\n        \"tiltable\": false\n    },\n    {\n        \"id\": \"734b916c-5f70-4234-8820-4c6622c2eb34\",\n        \"name\": \"only create with a missing tiltable and missing stackable #3\",\n        \"color\": \"#FAF9F9\",\n        \"length\": 123,\n        \"width\": 234.33,\n        \"height\": 65.56,\n        \"weight\": 223,\n        \"qty\": 20,\n        \"stackable\": false,\n        \"tiltable\": false\n    },\n    {\n        \"id\": \"64070415-60b6-4186-80e1-ab0fa152d47f\",\n        \"name\": \"only create with a missing tiltable and missing stackable #3\",\n        \"color\": \"#ABCDE\",\n        \"length\": 321,\n        \"width\": 432.33,\n        \"height\": 56.56,\n        \"weight\": 223,\n        \"qty\": 20,\n        \"stackable\": false,\n        \"tiltable\": false\n    },\n    {\n        \"id\": \"05334d76-742f-4494-a734-b2aee170f8e0\",\n        \"name\": \"Should get updated\",\n        \"color\": \"#FAF9F9\",\n        \"length\": 123,\n        \"width\": 191.11,\n        \"height\": 66.444,\n        \"weight\": 223,\n        \"qty\": 20,\n        \"stackable\": true,\n        \"tiltable\": true\n    },\n    {\n        \"id\": \"c15fd7e0-5094-41cc-a5ed-c38287dcec84\",\n        \"name\": \"Vineet Parekh\",\n        \"color\": \"#FAF9F9\",\n        \"length\": 123,\n        \"width\": 191.11,\n        \"height\": 66.444,\n        \"weight\": 223,\n        \"qty\": 42,\n        \"stackable\": true,\n        \"tiltable\": true\n    }\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/load-plan/v2",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"load-plan",
+						"v2"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
